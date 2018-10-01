@@ -1,0 +1,6 @@
+C:\Users\wach\Documents\Visual Studio 2012\Projects\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.exe.config
+C:\Users\wach\Documents\Visual Studio 2012\Projects\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.exe
+C:\Users\wach\Documents\Visual Studio 2012\Projects\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.pdb
+C:\Users\wach\Documents\Visual Studio 2012\Projects\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.csprojResolveAssemblyReference.cache
+C:\Users\wach\Documents\Visual Studio 2012\Projects\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.exe
+C:\Users\wach\Documents\Visual Studio 2012\Projects\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.pdb
