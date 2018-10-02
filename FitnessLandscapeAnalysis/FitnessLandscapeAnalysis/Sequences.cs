@@ -48,6 +48,11 @@ namespace FitnessLandscapeAnalysis
             /// Constant stepsize "&gt;" 0 and "&lt;" 1. A value of 0.01 is recommended for a uniform distribution.
             /// </summary>
             public double? stepsize;
+
+            /// <summary>
+            /// Print details in console?
+            /// </summary>
+            public bool verbose;
         }
 
 
@@ -60,16 +65,16 @@ namespace FitnessLandscapeAnalysis
         /// Sequence assumes normalized space.
         /// </summary>
         /// <param name="n">Dimension.</param>
-        /// <param name="P">Cardinality of the sequence.</param>
-        /// <returns>P x n matrix with P samples of n-dimensional vectors.</returns>
-        public static double[][] RandomWalk(int n, int P, parameters param)
+        /// <param name="k">Cardinality of the sequence.</param>
+        /// <returns>k x n matrix with k samples of n-dimensional vectors.</returns>
+        public static double[][] RandomWalk(int n, int k, parameters param)
         {
             if (String.IsNullOrEmpty(param.domainmode)) param.domainmode = "hypercube";
             if (String.IsNullOrEmpty(param.distribution)) param.distribution = "uniform";
             if (param.ballradius == null) param.ballradius = 0.25;
             if (param.seed == null) param.seed = 42;
             if (param.stepsize == null) param.stepsize = 0.05;
-
+            if (param.verbose == null) param.verbose = false;
 
             Misc.RandomDistributions rnd = new Misc.RandomDistributions(param.seed.Value);
 
@@ -86,11 +91,11 @@ namespace FitnessLandscapeAnalysis
             if (param.x0.Length != n) return null;
 
 
-            double[][] x = new double[P][];
+            double[][] x = new double[k][];
             x[0] = new double[n];
             param.x0.CopyTo(x[0], 0);
 
-            for (int j = 1; j < P; j++)
+            for (int j = 1; j < k; j++)
             {
                 x[j] = new double[n];
                 double[] r = new double[n];
@@ -121,12 +126,20 @@ namespace FitnessLandscapeAnalysis
                         if (x[j][i] < 0) x[j][i] = x[j - 1][i] - xt[i];
                         else if (x[j][i] > 1) x[j][i] = x[j - 1][i] - xt[i];
                     }
-
-                    //Console.WriteLine(Misc.Vector.Norm(xt));
-                    Console.WriteLine(x[j][0] + "," + x[j][1]);
                 }
-
             }
+
+
+            if (param.verbose)
+            {
+                for (int j = 0; j < k; j++)
+                {
+                    string str = Convert.ToString(x[j][0]);
+                    for (int i = 1; i < n; i++) str += "," + x[j][i];
+                    Console.WriteLine(str);
+                }
+            }
+
             return x;
         }
 
