@@ -74,7 +74,7 @@ namespace FitnessLandscapeAnalysis
             if (param.ballradius == null) param.ballradius = 0.25;
             if (param.seed == null) param.seed = 42;
             if (param.stepsize == null) param.stepsize = 0.05;
-            if (param.verbose == null) param.verbose = false;
+             //if (param.verbose == null) param.verbose = false;
 
             Misc.RandomDistributions rnd = new Misc.RandomDistributions(param.seed.Value);
 
@@ -144,6 +144,51 @@ namespace FitnessLandscapeAnalysis
         }
 
 
+
+        /// <summary>
+        /// Load a pre-defined input sequence from a csv file. Each row one sample, variables separated with comma ','.
+        /// </summary>
+        /// <param name="n">Dimension.</param>
+        /// <param name="k">Cardinality of the sequence.</param>
+        /// <param name="PathInput">Path of input sequence. (E.g. 'C:\\sequence.csv')</param>
+        /// <param name="param"></param>
+        /// <returns>k x n matrix with k samples of n-dimensional vectors.</returns>
+        public static double[][] LoadInputSequence(int n, int k, string PathInput, parameters param)
+        {
+            //load input sequence for sampling
+            List<double[]> xlist = new List<double[]>();
+            System.IO.StreamReader file = new System.IO.StreamReader(PathInput);
+            string line;
+            string[] text = new string[] { };
+            int linecount = 0;
+            while ((line = file.ReadLine()) != null)
+            {
+                xlist.Add(new double[n]);
+                text = line.Split(',');
+                int counter = 0;
+                foreach (string t in text)
+                {
+                    xlist[linecount][counter] = Convert.ToDouble(t);
+                    counter++;
+                }
+                linecount++;
+            }
+            file.Close();
+
+
+            double[][] x = xlist.ToArray();
+            if (param.verbose)
+            {
+                for (int j = 0; j < k; j++)
+                {
+                    string str = Convert.ToString(x[j][0]);
+                    for (int i = 1; i < n; i++) str += "," + x[j][i];
+                    Console.WriteLine(str);
+                }
+            }
+
+            return x;
+        }
 
 
 
