@@ -9,3 +9,4 @@ C:\Users\chwaibel\Documents\Visual Studio 2015\Projects\FitnessLandscapeAnalysis
 C:\Users\chwaibel\Documents\Visual Studio 2015\Projects\FitnessLandscapeAnalysis-master\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.pdb
 C:\Users\chwaibel\Documents\Visual Studio 2015\Projects\FitnessLandscapeAnalysis-master\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.exe
 C:\Users\chwaibel\Documents\Visual Studio 2015\Projects\FitnessLandscapeAnalysis-master\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.pdb
+C:\Users\chwaibel\Documents\Visual Studio 2015\Projects\FitnessLandscapeAnalysis-master\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.csprojResolveAssemblyReference.cache

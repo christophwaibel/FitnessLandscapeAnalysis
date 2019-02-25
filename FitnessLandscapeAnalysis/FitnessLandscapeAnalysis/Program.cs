@@ -18,6 +18,7 @@ namespace FitnessLandscapeAnalysis
         {
             SampleTestFunctions();
 
+            //RandomWalksSequenceCreation();
         }
 
 
@@ -27,27 +28,33 @@ namespace FitnessLandscapeAnalysis
         /// <param name="args"></param>
         static void SampleTestFunctions()
         {
-            int n = 10;                 // problem dimension. do it for n=10 and n=20. only for constraint, only for n=13
-            int k = (n + 1) * 10;         // sequence size. Morris is (n+1)*10
-            string filepath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\BS19 CaseStudies\TestFuncs\MorrisAnalysis\Input\Morris_inputs_n10.csv";
-            string outputpath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\BS19 CaseStudies\TestFuncs\MorrisAnalysis\Output\";
-
-
+            int n = 40;                 // problem dimension. do it for n=10 and n=20. only for constraint, only for n=13
             List<Func<double[], double>> tf = new List<Func<double[], double>>();
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.B_Sphere);     // [-1, 1] for all x
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Ackley);     // [-32.768, 32.768] for all x
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Rastrigin);    // [-5.12, 5.12] for all x
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.V_Rosenbrock); // [-2.048, 2.048] for all x
-            double[] lb = new double[tf.Count];
-            double[] ub = new double[tf.Count];
-            lb[0] = -1;
-            lb[1] = -32.768;
-            lb[2] = -5.12;
-            lb[3] = -2.048;
-            ub[0] = 1;
-            ub[1] = 32.768;
-            ub[2] = 5.12;
-            ub[3] = 2.048;
+
+
+            //________________________________________________________________________________________________________
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // for BS19 paper
+            //int k = (n + 1) * 10;         // sequence size. Morris is (n+1)*10. sobol is (n+2)*100 or 10000
+            //string filepath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\BS19 CaseStudies\TestFuncs\MorrisAnalysis\Input\Morris_inputs_n13_large.csv";
+            //string outputpath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\BS19 CaseStudies\TestFuncs\MorrisAnalysis\Output\";
+
+
+            //tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.B_Sphere);     // [-1, 1] for all x
+            //tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Ackley);     // [-32.768, 32.768] for all x
+            //tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Rastrigin);    // [-5.12, 5.12] for all x
+            //tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.V_Rosenbrock); // [-2.048, 2.048] for all x
+            //double[] lb = new double[tf.Count];
+            //double[] ub = new double[tf.Count];
+            //lb[0] = -1;
+            //lb[1] = -32.768;
+            //lb[2] = -5.12;
+            //lb[3] = -2.048;
+            //ub[0] = 1;
+            //ub[1] = 32.768;
+            //ub[2] = 5.12;
+            //ub[3] = 2.048;
 
             //tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.C_MichalewiczSchoenauer); // only for n=13. domain: [0,1] for i=0-8 and 12; [0,100] for i=9-11
             //double[] lb = new double[13];
@@ -64,6 +71,40 @@ namespace FitnessLandscapeAnalysis
             //    lb[i] = 0;
             //    ub[i] = 100;
             //}
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //________________________________________________________________________________________________________
+
+
+
+
+
+            //________________________________________________________________________________________________________
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // for JBPS paper
+            int k = (n + 2) * 10000;         // sequence size. Morris is (n+1)*10. sobol is (n+2)*100 or 10000
+            string filepath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\TestFunctions_JBPS\Sobol\N40_input_large.csv";
+            string outputpath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\TestFunctions_JBPS\Sobol\";
+
+            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.B_Sphere);     // 
+            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Ackley);     // 
+            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Rastrigin);    // 
+            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.V_Rosenbrock); // 
+            double[] lb = new double[tf.Count];
+            double[] ub = new double[tf.Count];
+            for (int i = 0; i < tf.Count(); i++)
+            {
+                lb[i] = -5;
+                ub[i] = 5;
+            }
+
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //________________________________________________________________________________________________________
+
+
 
 
 
@@ -102,7 +143,7 @@ namespace FitnessLandscapeAnalysis
                 writetextfile(outputpath, "output_n" + n + "_tf" + f + ".csv", stry);
 
                 //////MICHALEWICZ FUNCTION ONLY
-                //writetextfile(outputpath, "output_n" + n + "_tf" + 4 + ".csv", stry);
+                //writetextfile(outputpath, "output_n" + n + "_tf" + 4 + "_large.csv", stry);
 
 
 
@@ -131,9 +172,9 @@ namespace FitnessLandscapeAnalysis
 
 
 
-            int n = 8;             // problem dimension
+            int n = 40;             // problem dimension
             int k = n * 100;          // sequence size
-            int walks = 1;         // number of random walks
+            int walks = 20;         // number of random walks
             Random rnd = new Random(42);
             string path = @"C:\temp\";
 
