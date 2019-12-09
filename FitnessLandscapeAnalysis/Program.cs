@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
-
+using MetaheuristicsLibrary.TestFunctions;
 
 // TO DO: in class Sequence.cs, it should contain the bounds and take care of scaling/normalization. currently, Sequence creates values 0-1, and the scaling happens in Program.cs
 
@@ -87,10 +85,10 @@ namespace FitnessLandscapeAnalysis
             string filepath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\TestFunctions_JBPS\Sobol\N40_input_large.csv";
             string outputpath = @"C:\Users\chwaibel\DATA\PROJEKTE\18_FitnessLandscapeAnalysis\04_CASESTUDY\TestFunctions_JBPS\Sobol\";
 
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.B_Sphere);     // 
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Ackley);     // 
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Rastrigin);    // 
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.V_Rosenbrock); // 
+            tf.Add(SO.B_Sphere);     // 
+            tf.Add(SO.L_Ackley);     // 
+            tf.Add(SO.L_Rastrigin);    // 
+            tf.Add(SO.V_Rosenbrock); // 
             double[] lb = new double[tf.Count];
             double[] ub = new double[tf.Count];
             for (int i = 0; i < tf.Count(); i++)
@@ -229,10 +227,10 @@ namespace FitnessLandscapeAnalysis
 
 
             List<Func<double[], double>> tf = new List<Func<double[], double>>();
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.B_Sphere);     // [-1, 1] for all x
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Ackley);     // [-32.768, 32.768] for all x
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.L_Rastrigin);    // [-5.12, 5.12] for all x
-            tf.Add(FitnessLandscapeAnalysis.Testfunctions.SO.V_Rosenbrock); // [-2.048, 2.048] for all x
+            tf.Add(SO.B_Sphere);     // [-1, 1] for all x
+            tf.Add(SO.L_Ackley);     // [-32.768, 32.768] for all x
+            tf.Add(SO.L_Rastrigin);    // [-5.12, 5.12] for all x
+            tf.Add(SO.V_Rosenbrock); // [-2.048, 2.048] for all x
             double[] lb = new double[tf.Count];
             double[] ub = new double[tf.Count];
             lb[0] = -1;
