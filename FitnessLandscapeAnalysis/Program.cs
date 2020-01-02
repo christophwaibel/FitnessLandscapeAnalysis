@@ -14,9 +14,21 @@ namespace FitnessLandscapeAnalysis
 
         static void Main(string[] args)
         {
-            SampleTestFunctions();
+            //SampleTestFunctions();
 
             //RandomWalksSequenceCreation();
+
+            double[][] X = new double[3][];
+            X[0] = new double[2] { 0.0, 1.0 };
+            X[1] = new double[2] { 0.3, 0.1 };
+            X[2] = new double[2] { 0.45, 1.4 };
+            double[] y = new double[3] { 5124.042, 4214.04, 2341.001 };
+
+            double[] xlb = new double[3] { -1.0, -1.0, -1.0 };
+            double[] xub = new double[3] { 1.0, 1.0, 1.0 };
+            double fdc = Metrics.FDC(X, y, xlb, xub);
+            Console.WriteLine(fdc);
+            Console.ReadKey();
         }
 
 
@@ -170,7 +182,7 @@ namespace FitnessLandscapeAnalysis
 
 
 
-            int n = 40;             // problem dimension
+            int n = 10;             // problem dimension
             int k = n * 100;          // sequence size
             int walks = 20;         // number of random walks
             Random rnd = new Random(42);

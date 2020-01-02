@@ -7,6 +7,107 @@ using System.Threading.Tasks;
 namespace FitnessLandscapeAnalysis.Misc
 {
     /// <summary>
+    /// Statistical measures
+    /// </summary>
+    public static class Statistics
+    {
+        /// <summary>
+        /// Returns the mean of a multivariate distribution
+        /// </summary>
+        /// <param name="X">Multivariate distribution. First index contains the samples, second index the paramaters.</param>
+        /// <param name="subsample">If true, subtract 1 from population size</param>
+        /// <returns>Multivariate mean</returns>
+        public static double[] Mean(double[][] X, bool subsample = false)
+        {
+            int n = X[0].Length;
+            int P = X.Length;
+            int Pdiv = P;
+            if (subsample) Pdiv = Pdiv - 1;
+
+            double[] xmean = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                xmean[i] = 0.0;
+                for (int j = 0; j < P; j++)
+                {
+                    xmean[i] += X[j][i];
+                }
+                xmean[i] /= Pdiv;
+            }
+
+            return xmean;
+        }
+
+
+        /// <summary>
+        /// Returns the mean of a univariate distribution
+        /// </summary>
+        /// <param name="X">Distribution</param>
+        /// <param name="subsample">If ture, substract 1 from population size</param>
+        /// <returns>Mean of distribution</returns>
+        public static double Mean(double[] X, bool subsample = false)
+        {
+            double[][] X_in = new double[1][];
+            X_in[0] = new double[X.Length];
+            X.CopyTo(X_in[0], 0);
+
+            double[] xmean_out = Mean(X_in, subsample);
+            return xmean_out[0];
+        }
+
+
+        /// <summary>
+        /// Computes the standard deviation of a multivariate distribution
+        /// </summary>
+        /// <param name="X">Multivariate distribution</param>
+        /// <param name="subsample">If ture, substract 1 from population size</param>
+        /// <param name="xmean">mean of distribution, if known (saves some computation time)</param>
+        /// <returns>Multivariate standard deviation</returns>
+        public static double[] Stdev(double[][] X,
+            bool subsample = false, double[] xmean = null)
+        {
+            int n = X[0].Length;
+            int P = X.Length;
+            int Pdiv = P;
+            if (subsample) Pdiv = Pdiv - 1;
+
+            if (xmean == null) xmean = Mean(X, subsample);
+
+            double[] stdev = new double[n];
+            for (int i = 0; i < n; i++)
+            {
+                double sumP = 0.0;
+                for (int j = 0; j < P; j++)
+                {
+                    sumP += Math.Pow(X[j][i] - xmean[i], 2);
+                }
+                stdev[i] = Math.Sqrt((1 / Pdiv) * sumP);
+            }
+
+            return stdev;
+        }
+
+
+        /// <summary>
+        /// Computes the standard deviation of a univariate distribution
+        /// </summary>
+        /// <param name="X">Distribution</param>
+        /// <param name="subsample">If ture, substract 1 from population size</param>
+        /// <param name="xmean">Mean of distribution, if known (saves computation)</param>
+        /// <returns>Standard deviation</returns>
+        public static double Stdev(double[] X,
+            bool subsample = false, double? xmean = null)
+        {
+            double[][] X_in = new double[1][];
+            X_in[0] = new double[X.Length];
+            X.CopyTo(X_in[0], 0);
+            double[] stdev_out = Stdev(X_in, subsample);
+            return stdev_out[0];
+        }
+    }
+
+
+    /// <summary>
     /// Additional random distributions. 
     /// </summary>
     public class RandomDistributions : Random
