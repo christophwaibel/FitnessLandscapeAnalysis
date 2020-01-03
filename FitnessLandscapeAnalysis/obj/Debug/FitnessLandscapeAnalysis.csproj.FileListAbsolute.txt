@@ -13,7 +13,6 @@ C:\Users\chwaibel\Documents\Visual Studio 2015\Projects\FitnessLandscapeAnalysis
 C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.exe.config
 C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.exe
 C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\FitnessLandscapeAnalysis.pdb
-C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.csprojAssemblyReference.cache
 C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.exe
 C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.pdb
 C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\MetaheuristicsLibrary.dll

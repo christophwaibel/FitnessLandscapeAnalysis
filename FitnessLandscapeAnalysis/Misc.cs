@@ -22,7 +22,7 @@ namespace FitnessLandscapeAnalysis.Misc
             int n = X[0].Length;
             int P = X.Length;
             int Pdiv = P;
-            if (subsample) Pdiv = Pdiv - 1;
+            if (subsample) Pdiv -= 1;
 
             double[] xmean = new double[n];
             for (int i = 0; i < n; i++)
