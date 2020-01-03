@@ -89,7 +89,7 @@ namespace FitnessLandscapeAnalysis
             {
                 sumfd += (y[j] - ymean) * (d[j] - dmean);
             }
-            fdc = (sumfd / P) / (sigma_f * sigma_d);
+            fdc = (sumfd / (double)P) / (sigma_f * sigma_d);
             return fdc;
         }
 

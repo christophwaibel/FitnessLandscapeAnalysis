@@ -47,6 +47,7 @@ namespace FitnessLandscapeAnalysis
                 X[i] = Array.ConvertAll(text[i].Split(';'), new Converter<string, double>(Double.Parse));
             }
             int n = X[0].Length;
+            int P = X.Length;
 
             // load y
             Console.WriteLine("Enter path and filename of cost values y, e.g. \"c:\\temp\\y.csv\"");
@@ -86,7 +87,15 @@ namespace FitnessLandscapeAnalysis
                 xlb[i] = xlb_i;
             }
 
-            double fdc = Metrics.FDC(X, y, xlb, xub);
+            // rescale X to domain, because it is only 0 to 1
+            for (int j = 0; j < P; j++)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    X[j][i] = X[j][i] * (xub[i] - xlb[i]) + xlb[i];
+                }
+            }
+            double fdc = Metrics.FDC(X, y, xlb, xub, 0.0, new double[10] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 });
             Console.WriteLine(fdc);
         }
 

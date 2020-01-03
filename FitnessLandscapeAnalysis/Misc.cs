@@ -47,9 +47,12 @@ namespace FitnessLandscapeAnalysis.Misc
         /// <returns>Mean of distribution</returns>
         public static double Mean(double[] X, bool subsample = false)
         {
-            double[][] X_in = new double[1][];
-            X_in[0] = new double[X.Length];
-            X.CopyTo(X_in[0], 0);
+            double[][] X_in = new double[X.Length][];
+            for(int j=0; j<X.Length; j++)
+            {
+                X_in[j] = new double[1];
+                X_in[j][0] = X[j];
+            }
 
             double[] xmean_out = Mean(X_in, subsample);
             return xmean_out[0];
@@ -69,7 +72,7 @@ namespace FitnessLandscapeAnalysis.Misc
             int n = X[0].Length;
             int P = X.Length;
             int Pdiv = P;
-            if (subsample) Pdiv = Pdiv - 1;
+            if (subsample) Pdiv -= 1;
 
             if (xmean == null) xmean = Mean(X, subsample);
 
@@ -81,7 +84,7 @@ namespace FitnessLandscapeAnalysis.Misc
                 {
                     sumP += Math.Pow(X[j][i] - xmean[i], 2);
                 }
-                stdev[i] = Math.Sqrt((1 / Pdiv) * sumP);
+                stdev[i] = Math.Sqrt((1.0 / (double)Pdiv) * sumP);
             }
 
             return stdev;
@@ -98,9 +101,13 @@ namespace FitnessLandscapeAnalysis.Misc
         public static double Stdev(double[] X,
             bool subsample = false, double? xmean = null)
         {
-            double[][] X_in = new double[1][];
-            X_in[0] = new double[X.Length];
-            X.CopyTo(X_in[0], 0);
+            double[][] X_in = new double[X.Length][];
+            for (int j = 0; j < X.Length; j++)
+            {
+                X_in[j] = new double[1];
+                X_in[j][0] = X[j];
+            }
+
             double[] stdev_out = Stdev(X_in, subsample);
             return stdev_out[0];
         }
