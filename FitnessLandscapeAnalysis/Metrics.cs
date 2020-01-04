@@ -32,11 +32,18 @@ namespace FitnessLandscapeAnalysis
         /// <param name="xmin">parameters of cost minimal solution</param>
         /// <param name="distancem_measure">distance measure to compute state distance. Options: "Euclidean". to do: Hamming, etc.</param>
         /// <returns></returns>
-        public static double FDC(double [][] X, double [] y, double [] xlb, double [] xub,
+        public static double FDC(double [][] _X, double [] y, double [] xlb, double [] xub,
             double? ymin = null, double [] xmin = null, string distancem_measure = "Euclidean")
         {
-            int n = X[0].Length;    // problem dimension
-            int P = X.Length;       // population size
+            int n = _X[0].Length;    // problem dimension
+            int P = _X.Length;       // population size
+
+            double[][] X = new double[P][];
+            for (int i = 0; i < P; i++)
+            {
+                X[i] = new double[n];
+                _X[i].CopyTo(X[i], 0);
+            }
 
             if (ymin == null || xmin == null)
             {

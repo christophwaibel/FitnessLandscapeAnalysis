@@ -110,6 +110,30 @@ namespace FitnessLandscapeAnalysis.Misc
             double[] stdev_out = Stdev(X_in, subsample);
             return stdev_out[0];
         }
+
+
+        public static double Min(double[] X)
+        {
+            double min_temp = double.MaxValue;
+            for(int i=0; i<X.Length; i++)
+            {
+                if (X[i] < min_temp)
+                    min_temp = X[i];
+            }
+            return min_temp;
+        }
+
+
+        public static double Max(double[] X)
+        {
+            double max_temp = double.MinValue;
+            for (int i = 0; i < X.Length; i++)
+            {
+                if (X[i] > max_temp)
+                    max_temp = X[i];
+            }
+            return max_temp;
+        }
     }
 
 
@@ -352,6 +376,27 @@ namespace FitnessLandscapeAnalysis.Misc
             return rotatedMatrix;
         }
 
+
+
+        public static double[][] Transpose(double [][] A)
+        {
+            int m = A.Length;
+            int n = A[0].Length;
+            double[][] B = new double[n][];
+            for (int j=0; j < n; j++)
+            {
+                B[j] = new double[m];
+            }
+
+            for (int i = 0; i < m; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    B[j][i] = A[i][j];
+                }
+            }
+            return B;
+        }
     }
 
 
