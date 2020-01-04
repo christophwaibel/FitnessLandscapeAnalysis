@@ -1,8 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace FitnessLandscapeAnalysis.Misc
 {
@@ -353,5 +352,50 @@ namespace FitnessLandscapeAnalysis.Misc
             return rotatedMatrix;
         }
 
+    }
+
+
+    public static class IO
+    {
+        /// <summary>
+        /// Write a string array to a text file
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="filename"></param>
+        /// <param name="textperline"></param>
+        public static void WriteTextFile(string path, string filename, string[] textperline)
+        {
+            using (FileStream fs = new FileStream(path + filename, FileMode.Append, FileAccess.Write))
+            using (StreamWriter sw = new StreamWriter(fs))
+                foreach (string str in textperline)
+                    sw.WriteLine(str);
+        }
+
+
+        /// <summary>
+        /// Read a text file
+        /// </summary>
+        /// <param name="path_and_filename"></param>
+        /// <returns></returns>
+        public static string[] ReadTextFile(string path_and_filename)
+        {
+            List<string> text = new List<string>();
+            try
+            {
+                using (StreamReader sr = new StreamReader(path_and_filename))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        text.Add(line);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                text.Add(e.Message);
+            }
+            return text.ToArray();
+        }
     }
 }

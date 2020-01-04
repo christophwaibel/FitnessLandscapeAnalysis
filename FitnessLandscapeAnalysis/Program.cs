@@ -53,7 +53,7 @@ namespace FitnessLandscapeAnalysis
             Console.WriteLine();
             Console.WriteLine("Enter path and filename of Input sequence X, e.g. \"c:\\temp\\x.csv\". Should be a csv or txt file, parameters comma separated per row");
             string path_X = Console.ReadLine();
-            string[] text = ReadTextFile(path_X);
+            string[] text = Misc.IO.ReadTextFile(path_X);
             double[][] X = new double[text.Length][];
             for (int i = 0; i < text.Length; i++)
             {
@@ -66,14 +66,14 @@ namespace FitnessLandscapeAnalysis
             Console.WriteLine();
             Console.WriteLine("Enter path and filename of cost values y, e.g. \"c:\\temp\\y.csv\"");
             string path_y = Console.ReadLine();
-            text = ReadTextFile(path_y);
+            text = Misc.IO.ReadTextFile(path_y);
             int problem_index = -1;
             string problem_id = null;
             if (text[0].Split(',').Length > 1)
             {
                 Console.WriteLine("This output file contains data for more than one problem. Specify index of problem (>= 0) for FDC calculation:");
                 problem_index = Convert.ToInt32(Console.ReadLine());
-                problem_id = text[0].Split(',')[problem_index];
+                problem_id = text[0].Split(new char[] { ';', ',' })[problem_index];
             }
             else
             {
@@ -83,7 +83,7 @@ namespace FitnessLandscapeAnalysis
 
             if (problem_index >= 0)
                 for (int i = 1; i < text.Length; i++) 
-                    y[i - 1] = Array.ConvertAll(text[i].Split(','), new Converter<string, double>(Double.Parse))[problem_index];
+                    y[i - 1] = Array.ConvertAll(text[i].Split(new char[] { ';', ',' }), new Converter<string, double>(Double.Parse))[problem_index];
             else
                 for (int i = 1; i < text.Length; i++) 
                     y[i - 1] = Convert.ToDouble(text[i]);
@@ -237,7 +237,7 @@ namespace FitnessLandscapeAnalysis
                 for (int j = 0; j < k; j++)
                     stry[j] = ytf[f][j] + ";";
 
-                WriteTextFile(outputpath, "output_n" + n + "_tf" + f + ".csv", stry);
+                Misc.IO.WriteTextFile(outputpath, "output_n" + n + "_tf" + f + ".csv", stry);
 
                 //////MICHALEWICZ FUNCTION ONLY
                 //writetextfile(outputpath, "output_n" + n + "_tf" + 4 + "_large.csv", stry);
@@ -304,7 +304,7 @@ namespace FitnessLandscapeAnalysis
                     counter++;
                 }
             }
-            WriteTextFile(path, "input_n" + n + "_allWalks.csv", strxAll);
+            Misc.IO.WriteTextFile(path, "input_n" + n + "_allWalks.csv", strxAll);
         }
 
 
@@ -382,7 +382,7 @@ namespace FitnessLandscapeAnalysis
                 for (int j = 0; j < k; j++)
                     for (int i = 0; i < n; i++)
                         strx[j] += x[j][i] + ";";
-                WriteTextFile(path, "input_n" + n + "_" + w + ".txt", strx);
+                Misc.IO.WriteTextFile(path, "input_n" + n + "_" + w + ".txt", strx);
 
 
 
@@ -417,7 +417,7 @@ namespace FitnessLandscapeAnalysis
                     for (int j = 0; j < k; j++)
                         stry[j] = ytf[f][j] + ";";
 
-                    WriteTextFile(path, "output_n" + n + "_tf" + f + "_walk" + w + ".txt", stry);
+                    Misc.IO.WriteTextFile(path, "output_n" + n + "_tf" + f + "_walk" + w + ".txt", stry);
 
                     //////MICHALEWICZ FUNCTION ONLY
                     //writetextfile(path, "output_n" + n + "_tf" + 4 + "_walk" + w + ".txt", stry);
@@ -433,48 +433,6 @@ namespace FitnessLandscapeAnalysis
 
             Console.WriteLine("Done");
             Console.ReadKey();
-        }
-
-
-        /// <summary>
-        /// Write a string array to a text file
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="filename"></param>
-        /// <param name="textperline"></param>
-        static void WriteTextFile(string path, string filename, string[] textperline)
-        {
-            using (FileStream fs = new FileStream(path + filename, FileMode.Append, FileAccess.Write))
-            using (StreamWriter sw = new StreamWriter(fs))
-                foreach (string str in textperline)
-                    sw.WriteLine(str);
-        }
-
-
-        /// <summary>
-        /// Read a text file
-        /// </summary>
-        /// <param name="path_and_filename"></param>
-        /// <returns></returns>
-        static string[] ReadTextFile(string path_and_filename)
-        {
-            List<string> text = new List<string>();
-            try
-            {
-                using (StreamReader sr = new StreamReader(path_and_filename))
-                {
-                    string line;
-                    while ((line = sr.ReadLine()) != null)
-                    {
-                        text.Add(line);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                text.Add(e.Message);
-            }
-            return text.ToArray();
         }
     }
 }

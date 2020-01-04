@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Windows Desktop
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29411.108
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessLandscapeAnalysis", "FitnessLandscapeAnalysis\FitnessLandscapeAnalysis.csproj", "{A4DFC2A0-865F-4197-863A-C53961E51A5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CEC20", "CEC20\CEC20.csproj", "{DC6CAD41-008B-456C-98EE-85E9A83D8D7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,8 +17,15 @@ Global
 		{A4DFC2A0-865F-4197-863A-C53961E51A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4DFC2A0-865F-4197-863A-C53961E51A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4DFC2A0-865F-4197-863A-C53961E51A5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC6CAD41-008B-456C-98EE-85E9A83D8D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC6CAD41-008B-456C-98EE-85E9A83D8D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC6CAD41-008B-456C-98EE-85E9A83D8D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC6CAD41-008B-456C-98EE-85E9A83D8D7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B94D1B1C-5DCC-470C-94D9-5C59B8887231}
 	EndGlobalSection
 EndGlobal
