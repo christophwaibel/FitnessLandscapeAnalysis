@@ -98,54 +98,88 @@ namespace CEC20
                             domain_split[j] = domain_split[j].Replace(c, string.Empty);
                         }
                     }
-                    double xlb_1;
-                    double xub_1;
+
                     try
                     {
-                        xlb_1 = Convert.ToDouble(domain_split[0]);
-                        xub_1 = Convert.ToDouble(domain_split[1]);
+                        double xlb_1 = Convert.ToDouble(domain_split[0]);
+                        double xub_1 = Convert.ToDouble(domain_split[1]);
                         for (int j = 0; j < n; j++)
                         {
                             xub[j] = xub_1;
                             xlb[j] = xlb_1;
                         }
-                        fdc[i] = FLA.Metrics.FDC(X, y_transp[i], xlb, xub);
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("{0}: {1}", problem_id[i], e);
-                        fdc[i] = null;
+                        string prob = problem_id[i];
+                        switch (prob)
+                        {
+                            case "f036":    // [-nVar^2,nVar^2]
+                                for (int j = 0; j < n; j++)
+                                {
+                                    xlb[j] = Math.Pow(n, 2) * -1;
+                                    xub[j] = Math.Pow(n, 2);
+                                }
+                                break;
+                            case "f049":
+                            case "f188":    // [-pi,pi]
+                                for (int j = 0; j < n; j++)
+                                {
+                                    xlb[j] = Math.PI * -1;
+                                    xub[j] = Math.PI;
+                                }
+                                break;
+                            case "f078":
+                            case "f107":
+                            case "f108":    // [-15,-5;-3,3]
+                                xlb[0] = -15;
+                                xlb[1] = -3;
+                                xub[0] = -5;
+                                xub[1] = 3;
+                                break;
+                            case "f099":
+                            case "f100":     // [-2pi, 2pi]
+                                for (int j = 0; j < n; j++)
+                                {
+                                    xlb[j] = Math.PI * -2;
+                                    xub[j] = Math.PI * 2;
+                                }
+                                break;
+                            case "f178":
+                                for (int j = 0; j < n; j++)
+                                {
+                                    xlb[j] = 0;
+                                    xub[j] = Math.PI;
+                                }
+                                break;
+                            case "f216":
+                                for (int j = 0; j < n; j++)
+                                {
+                                    xlb[j] = Math.PI * -5;
+                                    xub[j] = Math.PI * 5;
+                                }
+                                break;
+                        }
                     }
+                    fdc[i] = FLA.Metrics.FDC(X, y_transp[i], xlb, xub);
+                    if (Double.IsNaN((double)fdc[i]))
+                        Console.WriteLine("{0} is NaN", problem_id[i]);
                 }
             }
+
+            // write fdc values and problem_id into a csv. each problem per row
+            string[] write_fdc = new string[problem_id.Length];
+            for (int i=0; i<problem_id.Length; i++)
+            {
+                write_fdc[i] = Convert.ToString(fdc[i]) + "," + problem_id[i];
+            }
+            string fdc_path = "FDC_" + filename_y;
+            FLA.Misc.IO.WriteTextFile(path_all, fdc_path, write_fdc);
+
+            Console.WriteLine();
+            Console.WriteLine("FDC file written to {0}", fdc_path);
+            Console.WriteLine("Hit any key to exit");
             Console.ReadKey();
-
-
-            //string read_lb = Console.ReadLine();
-            //Console.WriteLine();
-            //Console.WriteLine("Enter upper bound. For now, all the same for all i in n");
-            //string read_ub = Console.ReadLine();
-
-            //// convert lb and ub to doubles
-            //double xlb_i = Convert.ToDouble(read_lb);
-            //double xub_i = Convert.ToDouble(read_ub);
-            //double[] xub = new double[n];
-            //double[] xlb = new double[n];
-            //for (int i = 0; i < n; i++)
-            //{
-            //    xub[i] = xub_i;
-            //    xlb[i] = xlb_i;
-            //}
-
-            //// rescale X to domain, because it is only 0 to 1
-            //for (int j = 0; j < P; j++)
-            //    for (int i = 0; i < n; i++)
-            //        X[j][i] = X[j][i] * (xub[i] - xlb[i]) + xlb[i];
-
-            ////double fdc = Metrics.FDC(X, y, xlb, xub, 0.0, new double[10] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 });
-            //double fdc = FLA.Metrics.FDC(X, y, xlb, xub);
-            //Console.WriteLine();
-            //Console.WriteLine("FDC of problem {0}: {1}", problem_id, fdc);
         }
     }
 }
