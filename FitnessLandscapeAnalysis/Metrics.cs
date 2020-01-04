@@ -41,10 +41,10 @@ namespace FitnessLandscapeAnalysis
             if (ymin == null || xmin == null)
             {
                 int ymin_index = 0;
-                double ymin_temp = double.MaxValue;
+                ymin = double.MaxValue;
                 for (int i = 0; i < y.Length; i++)
                 {
-                    if (y[i] < ymin_temp)
+                    if (y[i] < ymin)
                     {
                         ymin = y[i];
                         ymin_index = i;
@@ -77,10 +77,10 @@ namespace FitnessLandscapeAnalysis
             }
 
             // calculate mean y and mean d, and stdev y and d
-            double dmean = Misc.Statistics.Mean(d);
-            double ymean = Misc.Statistics.Mean(y);
-            double sigma_d = Misc.Statistics.Stdev(d);
-            double sigma_f = Misc.Statistics.Stdev(y);
+            double dmean = Misc.Statistics.Mean(d, true);
+            double ymean = Misc.Statistics.Mean(y, true);
+            double sigma_d = Misc.Statistics.Stdev(d,true, dmean);
+            double sigma_y = Misc.Statistics.Stdev(y, true, ymean);
 
             // FDC value: see Pitzer2012, Eq. 8.13
             double fdc = 0.0;
@@ -89,7 +89,7 @@ namespace FitnessLandscapeAnalysis
             {
                 sumfd += (y[j] - ymean) * (d[j] - dmean);
             }
-            fdc = (sumfd / (double)P) / (sigma_f * sigma_d);
+            fdc = (sumfd / (double)P) / (sigma_y * sigma_d);
             return fdc;
         }
 

@@ -37,19 +37,33 @@ namespace FitnessLandscapeAnalysis
 
         static void ComputeFDC()
         {
+            //
+            Console.WriteLine();
+            Console.WriteLine("//////////////////////////////////////////////////////");
+            Console.WriteLine("///////// Fitness Distance Correlation ///////////////");
+            Console.WriteLine("//////////////////////////////////////////////////////");
+            Console.WriteLine();
+            Console.WriteLine("It needs: ");
+            Console.WriteLine("1) Input sequence with parameters in the columns and samples in the rows");
+            Console.WriteLine("2) Cost values with samples per row. It might contain values for several problems in the columns. First line MUST be a name string of the problem.");
+            Console.WriteLine("3) File with problem domain (lower and upper bounds), min solution parameters and min cost value (if known)");
+            Console.WriteLine();
+
             // load X
+            Console.WriteLine();
             Console.WriteLine("Enter path and filename of Input sequence X, e.g. \"c:\\temp\\x.csv\". Should be a csv or txt file, parameters comma separated per row");
             string path_X = Console.ReadLine();
             string[] text = ReadTextFile(path_X);
             double[][] X = new double[text.Length][];
             for (int i = 0; i < text.Length; i++)
             {
-                X[i] = Array.ConvertAll(text[i].Split(';'), new Converter<string, double>(Double.Parse));
+                X[i] = Array.ConvertAll(text[i].Split(new char[] { ';', ',' }), new Converter<string, double>(Double.Parse));
             }
             int n = X[0].Length;
             int P = X.Length;
 
             // load y
+            Console.WriteLine();
             Console.WriteLine("Enter path and filename of cost values y, e.g. \"c:\\temp\\y.csv\"");
             string path_y = Console.ReadLine();
             text = ReadTextFile(path_y);
@@ -61,6 +75,10 @@ namespace FitnessLandscapeAnalysis
                 problem_index = Convert.ToInt32(Console.ReadLine());
                 problem_id = text[0].Split(',')[problem_index];
             }
+            else
+            {
+                problem_id = text[0];
+            }
             double[] y = new double[text.Length - 1];
 
             if (problem_index >= 0)
@@ -69,10 +87,12 @@ namespace FitnessLandscapeAnalysis
             else
                 for (int i = 1; i < text.Length; i++) 
                     y[i - 1] = Convert.ToDouble(text[i]);
-            
+
             // load/enter xub, xlb... could also be a textfile. read from a file and use problem_index as identifier
+            Console.WriteLine(); 
             Console.WriteLine("Enter lower bound. For now, all the same for all i in n");
             string read_lb = Console.ReadLine();
+            Console.WriteLine();
             Console.WriteLine("Enter upper bound. For now, all the same for all i in n");
             string read_ub = Console.ReadLine();
 
@@ -89,14 +109,13 @@ namespace FitnessLandscapeAnalysis
 
             // rescale X to domain, because it is only 0 to 1
             for (int j = 0; j < P; j++)
-            {
                 for (int i = 0; i < n; i++)
-                {
                     X[j][i] = X[j][i] * (xub[i] - xlb[i]) + xlb[i];
-                }
-            }
-            double fdc = Metrics.FDC(X, y, xlb, xub, 0.0, new double[10] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 });
-            Console.WriteLine(fdc);
+
+            //double fdc = Metrics.FDC(X, y, xlb, xub, 0.0, new double[10] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 });
+            double fdc = Metrics.FDC(X, y, xlb, xub);
+            Console.WriteLine();
+            Console.WriteLine("FDC of problem {0}: {1}", problem_id, fdc);
         }
 
 

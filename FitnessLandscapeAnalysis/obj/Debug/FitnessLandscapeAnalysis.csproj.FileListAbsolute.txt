@@ -26,3 +26,4 @@ C:\Users\Chris\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysi
 C:\Users\Chris\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\MetaheuristicsLibrary.dll
 C:\Users\Chris\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\bin\Debug\MetaheuristicsLibrary.pdb
 C:\Users\Chris\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.csprojResolveAssemblyReference.cache
+C:\Users\Christoph\Documents\GitHub\FitnessLandscapeAnalysis\FitnessLandscapeAnalysis\obj\Debug\FitnessLandscapeAnalysis.csprojAssemblyReference.cache
